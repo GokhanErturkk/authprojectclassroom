@@ -1,18 +1,18 @@
 package estu.ceng.edu;
 
 public class Signup extends AuthService {
-    public void register(String username, String email, String password) throws Exception {
+    public void register(String username, String email, String password) throws UsernameAlreadyTakenException, EmailAlreadyTakenException, WeakPasswordException {
         if (!isEmpty()) {
             if (storedUsername.equals(username)) {
-                throw new Exception("Username is already taken.");
+                throw new UsernameAlreadyTakenException();
             }
             if (storedEmail.equals(email)) {
-                throw new Exception("Email is already taken.");
+                throw new EmailAlreadyTakenException();
             }
         }
 
         if (password.length() < 6) {
-            throw new Exception("Password must be at least 6 characters.");
+            throw new WeakPasswordException();
         }
 
         storedUsername = username;
